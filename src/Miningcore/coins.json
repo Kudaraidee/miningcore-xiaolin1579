@@ -370,6 +370,7 @@
             "hash": "reverse",
             "args": [ { "hash": "sha256d" } ]
         },
+        "coinbaseIgnoreAuxFlags": true,
         "explorerBlockLink": "https://www.blockchain.com/btc/block/$hash$",
         "explorerTxLink": "https://www.blockchain.com/btc/tx/{0}",
         "explorerAccountLink": "https://www.blockchain.com/btc/address/{0}"
