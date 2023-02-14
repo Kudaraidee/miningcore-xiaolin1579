@@ -13,15 +13,15 @@
             "hash": "sha256d"
         },
         "headerHasher": {
-            "hash": "x16rv2"
+            "hash": "x16-v2"
         },
         "blockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "posBlockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "hasMasterNodes": true,
         "shareMultiplier": 4096,
@@ -1272,15 +1272,15 @@
             "hash": "sha256d"
         },
         "headerHasher": {
-            "hash": "x16rv2"
+            "hash": "x16r-v2"
         },
         "blockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "posBlockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "shareMultiplier": 4096,
         "explorerBlockLink": "https://explorer.foxdcoin.com/block-height/$height$",
@@ -1521,15 +1521,15 @@
             "hash": "sha256d"
         },
         "headerHasher": {
-            "hash": "x16rv2"
+            "hash": "x16r-v2"
         },
         "blockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "posBlockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "shareMultiplier": 4096,
         "hasMasterNodes": true,
@@ -2498,15 +2498,15 @@
             "hash": "sha256d"
         },
         "headerHasher": {
-            "hash": "x16rv2"
+            "hash": "x16r-v2"
         },
         "blockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "posBlockHasher": {
             "hash": "reverse",
-            "args": [ { "hash": "x16rv2" } ]
+            "args": [ { "hash": "x16r-v2" } ]
         },
         "hasMasterNodes": true,
         "shareMultiplier": 4096,
