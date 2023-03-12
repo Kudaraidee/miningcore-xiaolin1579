@@ -248,10 +248,12 @@ public class BitcoinJob
 
         if(coin.HasMinerFund)
             rewardToPool = CreateMinerFundOutputs(tx, rewardToPool);
-		
+
+        if(coin.HasMinerDevFund)
+            rewardToPool = CreateMinerDevFundOutputs(tx, rewardToPool);
+
         if (coin.HasCommunityAddress)
             rewardToPool = CreateCommunityAddressOutputs(tx, rewardToPool);
-
 
         // Remaining amount goes to pool
         tx.Outputs.Add(rewardToPool, poolAddressDestination);
@@ -546,16 +548,37 @@ public class BitcoinJob
 
     #endregion // Founder
 	
+    #region MinerDevfund
+
+    protected MinerDevFundTemplateExtra minerDevFundParameters;
+
+    protected virtual Money CreateMinerDevFundOutputs(Transaction tx, Money reward)
+    {
+        var payeeReward = minerFundParameters.MinimumValue;
+
+        if(!string.IsNullOrEmpty(minerFundParameters.Addresses?.FirstOrDefault()))
+        {
+            var payeeAddress = BitcoinUtils.AddressToDestination(minerDevFundParameters.Addresses[0], network);
+            tx.Outputs.Add(payeeReward, payeeAddress);
+        }
+
+        reward -= payeeReward;
+
+        return reward;
+    }
+
+    #endregion // Founder
+
     #region CommunityAddress
 
     protected virtual Money CreateCommunityAddressOutputs(Transaction tx, Money reward)
     {
         if(BlockTemplate.CommunityAutonomousAddress != null && BlockTemplate.CommunityAutonomousValue > 0)
         {
-        var payeeReward = BlockTemplate.CommunityAutonomousValue;
-        reward -= payeeReward;
-        var payeeAddress = BitcoinUtils.AddressToDestination(BlockTemplate.CommunityAutonomousAddress, network);
-        tx.Outputs.Add(payeeReward, payeeAddress);
+        	var payeeReward = BlockTemplate.CommunityAutonomousValue;
+        	reward -= payeeReward;
+        	var payeeAddress = BitcoinUtils.AddressToDestination(BlockTemplate.CommunityAutonomousAddress, network);
+        	tx.Outputs.Add(payeeReward, payeeAddress);
         }
         return reward;
     }
@@ -636,6 +659,9 @@ public class BitcoinJob
 
         if(coin.HasMinerFund)
             minerFundParameters = BlockTemplate.Extra.SafeExtensionDataAs<MinerFundTemplateExtra>("coinbasetxn", "minerfund");
+
+        if(coin.HasMinerDevFund)
+            minerDevFundParameters = BlockTemplate.Extra.SafeExtensionDataAs<MinerDevFundTemplateExtra>("coinbasetxn", "minerdevfund");
 
         this.coinbaseHasher = coinbaseHasher;
         this.headerHasher = headerHasher;
