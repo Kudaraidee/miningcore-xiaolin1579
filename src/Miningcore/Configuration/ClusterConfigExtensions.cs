@@ -101,6 +101,22 @@ public partial class RavencoinTemplate
     #endregion
 }
 
+public partial class EvrmoreTemplate
+{
+    public EvrmoreTemplate() : base()
+    {
+        EvrprogpowHasher = new Crypto.Hashing.Evrprogpow.EvrProgpowLight();
+    }
+
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+        return EvrprogpowHasher.AlgoName;
+    }
+
+    #endregion
+}
 
 public partial class EquihashCoinTemplate
 {

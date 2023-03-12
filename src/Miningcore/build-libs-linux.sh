@@ -29,6 +29,7 @@ export HAVE_FEATURE="$HAVE_AES $HAVE_SSE2 $HAVE_SSE3 $HAVE_SSSE3 $HAVE_AVX $HAVE
 (cd ../Native/libcryptonote && make -j clean && make -j) && mv ../Native/libcryptonote/libcryptonote.so "$OutDir"
 (cd ../Native/libcryptonight && make -j clean && make -j) && mv ../Native/libcryptonight/libcryptonight.so "$OutDir"
 (cd ../Native/libkawpow && make -j clean && make -j) && mv ../Native/libkawpow/libkawpow.so "$OutDir"
+(cd ../Native/libevrprogpow && make -j clean && make -j) && mv ../Native/libevrprogpow/libevrprogpow.so "$OutDir"
 
 
 ((cd /tmp && rm -rf RandomX && git clone https://github.com/tevador/RandomX && cd RandomX && git checkout tags/v1.1.10 && mkdir build && cd build && cmake -DARCH=native .. && make -j) && (cd ../Native/librandomx && cp /tmp/RandomX/build/librandomx.a . && make -j clean && make -j) && mv ../Native/librandomx/librandomx.so "$OutDir")

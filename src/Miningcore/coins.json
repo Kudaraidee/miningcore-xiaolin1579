@@ -980,6 +980,27 @@
         "explorerTxLink": "https://explorer.etitanium.net/tx/{0}",
         "explorerAccountLink": "https://explorer.etitanium.net/address/{0}"
     },
+    "evrmore": {
+        "name": "Evrmore",
+        "symbol": "EVR",
+        "family": "evrmore",
+        "website": "https://evrmorecoin.org/",
+        "market": "https://coinpaprika.com/coin/evr-evrmore",
+        "twitter": "https://twitter.com/Evrcoin",
+        "telegram": "https://t.me/EvrmoreCoin",
+        "discord": "",
+        "coinbaseHasher": {
+            "hash": "sha256d"
+        },
+        "headerHasher": {
+            "hash": "sha256d"
+        },
+        "hasMinerDevFund": true,
+        "shareMultiplier": 1,
+        "explorerBlockLink": "https://evr.cryptoscope.io/block/?blockheight=$height$",
+        "explorerTxLink": "https://evr.cryptoscope.io/tx/?txid={0}",
+        "explorerAccountLink": "https://evr.cryptoscope.io/address/?address={0}"
+    },
     "exosis": {
         "name": "Exosis",
         "canonicalName": "Exosis",
