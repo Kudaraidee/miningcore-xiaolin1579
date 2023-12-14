@@ -3657,6 +3657,7 @@
     },
     "sugarchain": {
         "name": "Sugarchain",
+        "canonicalName": "SugarChain",
         "symbol": "SUGAR",
         "family": "bitcoin",
         "website": "https://sugarchain.org/",
