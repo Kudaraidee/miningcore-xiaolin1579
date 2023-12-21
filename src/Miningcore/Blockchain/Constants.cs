@@ -9,5 +9,6 @@ public static class JobRefreshBy
     public const string BlockTemplateStream = "BTS";
     public const string BlockTemplateStreamRefresh = "BTS-R";
     public const string WebSocket = "WS";
+    public const string Socket = "S";
     public const string BlockFound = "BLOCK";
 }

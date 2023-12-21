@@ -650,6 +650,33 @@
         "explorerTxLink": "https://cann.tokenview.com/en/tx/{0}",
         "explorerAccountLink": "https://cann.tokenview.com/en/address/{0}"
     },
+    "cpuchain": {
+        "name": "CPUchain",
+        "symbol": "CPU",
+        "family": "bitcoin",
+        "website": "https://cpuchain.org/",
+        "twitter": "",
+        "telegram": "",
+        "discord": "https://discordapp.com/invite/SUAgC9f",
+        "coinbaseHasher": {
+            "hash": "sha256d"
+        },
+        "headerHasher": {
+            "hash": "cpupower"
+        },
+        "blockHasher": {
+            "hash": "reverse",
+            "args": [
+                {
+                    "hash": "cpupower"
+                }
+            ]
+        },
+        "shareMultiplier": 65536,
+        "explorerBlockLink": "https://explorer.cpuchain.tech/block/$hash$",
+        "explorerTxLink": "https://explorer.cpuchain.tech/tx/{0}",
+        "explorerAccountLink": "https://explorer.cpuchain.tech/address/{0}"
+    },
     "crionic": {
         "name": "Crionic",
         "symbol": "CRNC",
@@ -2157,6 +2184,40 @@
         "explorerTxLink": "https://mazacha.in/tx/{0}",
         "explorerAccountLink": "https://mazacha.in/address/{0}"
     },
+    "mecuai": {
+        "name": "MecuAI",
+        "canonicalName": "MecuAI",
+        "symbol": "MECU",
+        "family": "bitcoin",
+        "website": "https://mecuai.com/",
+        "market": "",
+        "twitter": "https://x.com/WeAreMecuAI",
+        "telegram": "",
+        "discord": "https://discord.gg/2nn72UceUY",
+        "github": "https://github.com/mecuai",
+        "explorer": "https://explorer.mecuai.com/",
+        "coinbaseHasher": {
+            "hash": "sha256d"
+        },
+        "headerHasher": {
+            "hash": "ghostrider"
+        },
+        "blockHasher": {
+            "hash": "reverse",
+            "args": [
+                {
+                    "hash": "sha256d"
+                }
+            ]
+        },
+        "hasFounderFee": true,
+        "hasMasterNodes": true,
+	"hasSmartNodes": true,
+        "shareMultiplier": 65536,
+        "explorerBlockLink": "https://explorer.mecuai.com/block/$hash$",
+        "explorerTxLink": "https://explorer.mecuai.com/tx/{0}",
+        "explorerAccountLink": "https://explorer.mecuai.com/address/{0}"
+    },
     "microbitcoin": {
         "name": "MicroBitcoin",
         "canonicalName": "MicroBitcoin",
@@ -2864,7 +2925,6 @@
         "hasFounderFee": true,
         "hasMasterNodes": true,
         "hasSmartNodes": true,
-        "foundersRewardAddress": ["RTtyQU6DoSuNWetT4WUem5qXP5jNYGpwat"],
         "shareMultiplier": 65536,
         "explorerBlockLink": "https://explorer.raptoreum.com/block-height/$height$",
         "explorerTxLink": "https://explorer.raptoreum.com/tx/{0}",
@@ -2956,7 +3016,7 @@
         },
         "hasFounderFee": true,
         "hasMasterNodes": true,
-        "foundersRewardAddress": ["Gg4bypdnAPRoMuhfquePZBWegLn5vRUZJw"],
+        "hasSmartNodes": true,
         "shareMultiplier": 65536,
         "explorerBlockLink": "https://block.gecko.mn/block/$height$",
         "explorerTxLink": "https://block.gecko.mn/tx/{0}",
@@ -2988,7 +3048,7 @@
         },
         "hasFounderFee": true,
         "hasMasterNodes": true,
-        "foundersRewardAddress": ["BLbWwABzjJGsSeibe6oJvTK5aEq8Sx7rU9"],
+        "hasSmartNodes": true,
         "shareMultiplier": 65536,
         "explorerBlockLink": "https://explorer.babacoin.network/block/$height$",
         "explorerTxLink": "https://explorer.babacoin.network/tx/{0}",
@@ -3019,7 +3079,7 @@
         },
         "hasFounderFee": true,
         "hasMasterNodes": true,
-        "foundersRewardAddress": ["GZBNAiLokyYvSwNLftReXuYbvdmzNoorGj"],
+        "hasSmartNodes": true,
         "shareMultiplier": 65536,
         "explorerBlockLink": "https://explorer.globalsocialpost.com/block/$height$",
         "explorerTxLink": "https://explorer.globalsocialpost.com/tx/{0}",
@@ -3050,7 +3110,7 @@
         },
         "hasFounderFee": true,
         "hasMasterNodes": true,
-        "foundersRewardAddress": ["JQx6yy4rST5rD1joXWqBsZ6E3ZhFk6gWBk"],
+        "hasSmartNodes": true,
         "shareMultiplier": 65536,
         "explorerBlockLink": "https://explorer.jagoancoin.org/block/$height$",
         "explorerTxLink": "https://explorer.jagoancoin.org/tx/{0}",
@@ -3238,7 +3298,6 @@
         "hasFounderFee": true,
         "hasMasterNodes": true,
         "hasSmartNodes": true,
-        "foundersRewardAddress": ["BanxgMPcMpXnuWQ2ogfQqEkwwVtjhAhXBR"],
         "shareMultiplier": 65536,
         "explorerBlockLink": "https://explorer.bitoreum.org/block/$hash$",
         "explorerTxLink": "https://explorer.bitoreum.org/tx/{0}",
@@ -5703,6 +5762,20 @@
         },
         "explorerTxLink": "http://64.225.78.99:4000/tx/{0}",
         "explorerAccountLink": "http://64.225.78.99:4000/address/{0}"
+    },
+	"alephium": {
+        "name": "Alephium",
+        "canonicalName": "Alephium",
+        "symbol": "ALPH",
+        "family": "alephium",
+        "website": "https://alephium.org/",
+        "market": "https://coinmarketcap.com/currencies/alephium/",
+        "twitter": "https://twitter.com/alephium",
+        "telegram": "https://t.me/alephiumgroup",
+        "discord": "https://discord.gg/JErgRBfRSB",
+        "explorerBlockLink": "https://explorer.alephium.org/blocks/$hash$",
+        "explorerTxLink": "https://explorer.alephium.org/transactions/{0}",
+        "explorerAccountLink": "https://explorer.alephium.org/addresses/{0}"
     },
     "ergo": {
         "name": "Ergo",

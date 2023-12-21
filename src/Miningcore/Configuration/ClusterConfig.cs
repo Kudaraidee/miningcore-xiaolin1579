@@ -16,6 +16,9 @@ namespace Miningcore.Configuration;
 
 public enum CoinFamily
 {
+    [EnumMember(Value = "alephium")]
+    Alephium,
+
     [EnumMember(Value = "bitcoin")]
     Bitcoin,
 
@@ -143,6 +146,7 @@ public abstract partial class CoinTemplate
     [JsonIgnore]
     public static readonly Dictionary<CoinFamily, Type> Families = new()
     {
+        {CoinFamily.Alephium, typeof(AlephiumCoinTemplate)},
         {CoinFamily.Bitcoin, typeof(BitcoinTemplate)},
         {CoinFamily.Equihash, typeof(EquihashCoinTemplate)},
         {CoinFamily.Conceal, typeof(ConcealCoinTemplate)},
@@ -161,6 +165,10 @@ public enum BitcoinSubfamily
 
     //[EnumMember(Value = "florincoin")]
     //Florincoin,
+}
+
+public partial class AlephiumCoinTemplate : CoinTemplate
+{
 }
 
 public partial class BitcoinTemplate : CoinTemplate

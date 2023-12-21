@@ -2,10 +2,12 @@ using System.Reflection;
 using Autofac;
 using Miningcore.Api;
 using Miningcore.Banning;
+using Miningcore.Blockchain.Alephium;
 using Miningcore.Blockchain.Bitcoin;
 using Miningcore.Blockchain.Conceal;
 using Miningcore.Blockchain.Cryptonote;
 using Miningcore.Blockchain.Equihash;
+using Miningcore.Blockchain.Ergo;
 using Miningcore.Blockchain.Ethereum;
 using Miningcore.Blockchain.Nexa;
 using Miningcore.Blockchain.Progpow;
@@ -25,7 +27,6 @@ using Newtonsoft.Json.Serialization;
 using Module = Autofac.Module;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IO;
-using Miningcore.Blockchain.Ergo;
 using Miningcore.Nicehash;
 using Miningcore.Pushover;
 
@@ -160,6 +161,10 @@ public class AutofacModule : Module
             .Keyed<IPayoutScheme>(PayoutScheme.PROP)
             .SingleInstance();
 
+        //////////////////////
+        // Alephium
+        builder.RegisterType<AlephiumJobManager>();
+        
         //////////////////////
         // Bitcoin and family
 

@@ -27,6 +27,16 @@ public abstract partial class CoinTemplate
     public string Source { get; set; }
 }
 
+public partial class AlephiumCoinTemplate
+{
+    #region Overrides of CoinTemplate
+    public override string GetAlgorithmName()
+    {
+        return "Blake3";
+    }
+    #endregion
+}
+
 public partial class BitcoinTemplate
 {
     public BitcoinTemplate()

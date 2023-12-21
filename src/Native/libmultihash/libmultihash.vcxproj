@@ -173,6 +173,8 @@
     <ClInclude Include="blake.h" />
     <ClInclude Include="blake2\ref\blake2-impl.h" />
     <ClInclude Include="blake2\ref\blake2.h" />
+    <ClInclude Include="blake3\blake3.h" />
+    <ClInclude Include="blake3\blake3_impl.h" />
     <ClInclude Include="boolberry.h" />
     <ClInclude Include="brg_endian.h" />
     <ClInclude Include="c11.h" />
@@ -294,6 +296,18 @@
     <ClCompile Include="blake2\ref\blake2sp-ref.c" />
     <ClCompile Include="blake2\ref\blake2xb-ref.c" />
     <ClCompile Include="blake2\ref\blake2xs-ref.c" />
+    <ClCompile Include="blake3\blake3.c" />
+    <ClCompile Include="blake3\blake3_avx2.c" />
+    <ClCompile Include="blake3\blake3_avx2_x86-64_unix.S" />
+    <ClCompile Include="blake3\blake3_avx512.c" />
+    <ClCompile Include="blake3\blake3_avx512_x86-64_unix.S" />
+    <ClCompile Include="blake3\blake3_avx512_x86-64_windows_gnu.S" />
+    <ClCompile Include="blake3\blake3_dispatch.c" />
+    <ClCompile Include="blake3\blake3_neon.c" />
+    <ClCompile Include="blake3\blake3_portable.c" />
+    <ClCompile Include="blake3\blake3_sse41.c" />
+    <ClCompile Include="blake3\blake3_sse41_x86-64_unix.S" />
+    <ClCompile Include="blake3\blake3_sse41_x86-64_windows_gnu.S" />
     <ClCompile Include="c11.c" />
     <ClCompile Include="dcrypt.c" />
     <ClCompile Include="dllmain.cpp" />

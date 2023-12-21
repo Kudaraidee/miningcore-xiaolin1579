@@ -74,6 +74,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "blake2/sse/blake2.h"
 #endif
 
+#include "blake3/blake3.h"
+
 #ifdef _WIN32
 #define MODULE_API __declspec(dllexport)
 #else
@@ -195,6 +197,11 @@ extern "C" MODULE_API void blake2s_export(const char *input, char *output, uint3
 extern "C" MODULE_API void blake2b_export(const char *input, char *output, uint32_t input_len, uint32_t output_len)
 {
 	blake2b(output, output_len == -1 ? BLAKE2B_OUTBYTES : output_len, input, input_len, NULL, 0);
+}
+
+extern "C" MODULE_API void blake3_export(const char* input, char* output, uint32_t input_length)
+{
+    blake3_hash(input, output, input_length);
 }
 
 extern "C" MODULE_API void dcrypt_export(const char *input, char *output, uint32_t input_len)
