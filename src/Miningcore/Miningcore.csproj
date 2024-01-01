@@ -61,9 +61,9 @@
         <PackageReference Include="NLog.Extensions.Hosting" Version="5.1.0" />
         <PackageReference Include="AutoMapper" Version="12.0.1" />
         <PackageReference Include="Dapper" Version="2.1.24" />
-        <PackageReference Include="FluentValidation" Version="11.2.2" />
+        <PackageReference Include="FluentValidation" Version="11.9.0" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
         <PackageReference Include="MailKit" Version="3.4.2" />
         <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.0" />
