@@ -1,5 +1,5 @@
-CFLAGS += -g -Wall -c -fPIC -O2 -Wno-pointer-sign -Wno-char-subscripts -Wno-unused-variable -Wno-unused-function -Wno-strict-aliasing -Wno-discarded-qualifiers -Wno-unused-const-variable -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -mpclmul -maes
-CXXFLAGS += -g -Wall -fPIC -fpermissive -O2 -faligned-new -Wno-char-subscripts -Wno-unused-variable -Wno-unused-function -Wno-strict-aliasing -Wno-sign-compare -std=c++11 -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -mpclmul -maes
+CFLAGS += -g -Wall -c -fPIC -O2 -Wno-pointer-sign -Wno-char-subscripts -Wno-unused-variable -Wno-unused-function -Wno-strict-aliasing -Wno-discarded-qualifiers -Wno-unused-const-variable $(CPU_FLAGS)
+CXXFLAGS += -g -Wall -fPIC -fpermissive -O2 -faligned-new -Wno-char-subscripts -Wno-unused-variable -Wno-unused-function -Wno-strict-aliasing -Wno-sign-compare -std=c++11 $(CPU_FLAGS)
 LDFLAGS = -shared
 LDLIBS = -lsodium
 TARGET = libverushash.so

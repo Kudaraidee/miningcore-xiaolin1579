@@ -92,6 +92,7 @@ void verushash2b2(char* input, char* output, int input_len)
     vh2b2->Reset();
     vh2b2->Write((const unsigned char *)input, input_len);
     vh2b2->Finalize2b((unsigned char *)output);
+    delete vh2b2;
 }
 
 void verushash2b1(char* input, char* output, int input_len)
@@ -102,6 +103,7 @@ void verushash2b1(char* input, char* output, int input_len)
     vh2b1->Reset();
     vh2b1->Write((const unsigned char *)input, input_len);
     vh2b1->Finalize2b((unsigned char *)output);
+    delete vh2b1;
 }
 
 void verushash2b(char* input, char* output, int input_len)
@@ -112,6 +114,7 @@ void verushash2b(char* input, char* output, int input_len)
     vh2->Reset();
     vh2->Write((const unsigned char *)input, input_len);
     vh2->Finalize2b((unsigned char *)output);
+    delete vh2;
 }
 
 void verushash2(char* input, char* output, int input_len)

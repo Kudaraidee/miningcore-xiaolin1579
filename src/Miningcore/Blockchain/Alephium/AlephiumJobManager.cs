@@ -66,7 +66,7 @@ public class AlephiumJobManager : JobManagerBase<AlephiumJob>
             {
                 using(cts)
                 {
-                    retry:
+                    socket_connexion:
                         byte[] receiveBuffer = new byte[socketJobMessageBufferSize];
 
                         try
@@ -91,10 +91,11 @@ public class AlephiumJobManager : JobManagerBase<AlephiumJob>
                             
                             // Message
                             byte messageType;
-                            int startOffset;
-                            byte[] message;
+                            uint messageLength;
                             
-                            MemoryStream memory;
+                            MemoryStream memory = new MemoryStream();
+                            long remainingBytes;
+                            byte[] remainingDataBytes;
                             BinaryReader reader;
                             
                             // Job
@@ -111,7 +112,6 @@ public class AlephiumJobManager : JobManagerBase<AlephiumJob>
                             byte[] targetBlob;
                             
                             ChainInfo chainInfo;
-                            
 
                             logger.Debug(() => $"Sending request `{hello}`");
                             // send
@@ -122,69 +122,98 @@ public class AlephiumJobManager : JobManagerBase<AlephiumJob>
                             while(!cts.IsCancellationRequested && (receivedBytes = await stream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length, cts.Token)) != 0)
                             {
                                 logger.Debug(() => $"{receivedBytes} byte(s) of data have been received - current buffer size [{receiveBuffer.Length}]");
-                                
-                                messageType = receiveBuffer[AlephiumConstants.MessageHeaderSize];
-                                if (messageType == AlephiumConstants.JobsMessageType)
-                                {
-                                    logger.Debug(() => $"Job(s) received :D");
-                                    startOffset = AlephiumConstants.MessageHeaderSize + 1; // 1 byte message type
-                                    message = new byte[receivedBytes - startOffset];
-                                    Buffer.BlockCopy(receiveBuffer, startOffset, message, 0, receivedBytes - startOffset);
 
-                                    using (memory = new MemoryStream(message))
+                                // Append new received data to MemoryStream
+                                memory.Seek(0, SeekOrigin.End);
+                                memory.Write(receiveBuffer, 0, receivedBytes);
+
+                                // According to the ALPH reference pool, it's possible to receive more than 16 blockTemplate at once: https://github.com/alephium/mining-pool/commit/e94379b8fbf6f8b75aecb9b8e77b865de3679552
+                                // We need to handle properly that case scenario
+                                socket_read_memory:
+                                    logger.Debug(() => $"MemoryStream: {memory.Length} byte(s)");
+
+                                    memory.Seek(0, SeekOrigin.Begin);
+                                    using (reader = new BinaryReader(memory, Encoding.UTF8, true))
                                     {
-                                        using (reader = new BinaryReader(memory))
+                                        messageLength = ReadBigEndianUInt32(reader);
+                                        logger.Debug(() => $"Message: {messageLength} byte(s)");
+
+                                        if((memory.Length >= AlephiumConstants.MessageHeaderSize) && (memory.Length >= messageLength + AlephiumConstants.MessageHeaderSize))
                                         {
-                                            jobSize = ReadBigEndianUInt32(reader);
-                                            //logger.Debug(() => $"Parsing {jobSize} job(s)");
-                                            
-                                            alephiumBlockTemplate = new AlephiumBlockTemplate[jobSize];
-                                            
-                                            for (int index = 0; index < jobSize; index++)
+                                            // Read the message type
+                                            messageType = reader.ReadByte();
+                                            if (messageType == AlephiumConstants.JobsMessageType)
                                             {
-                                                logger.Debug(() => $"Job ({index + 1})");
-                                                fromGroup = (int)ReadBigEndianUInt32(reader);
-                                                toGroup = (int)ReadBigEndianUInt32(reader);
-                                                //logger.Debug(() => $"fromGroup: {fromGroup} - toGroup: {toGroup}");
+                                                jobSize = ReadBigEndianUInt32(reader);
+                                                logger.Debug(() => $"Parsing {jobSize} job(s) :D");
 
-                                                chainInfo = await rpc.GetBlockflowChainInfoAsync(fromGroup, toGroup, cts.Token);
-                                                //logger.Debug(() => $"Height: {chainInfo?.CurrentHeight + 1}");
-                                                
-                                                headerBlobLength = ReadBigEndianUInt32(reader);
-                                                //logger.Debug(() => $"headerBlobLength: {headerBlobLength}");
-                                                headerBlob = reader.ReadBytes((int)headerBlobLength);
-                                                //logger.Debug(() => $"headerBlob: {headerBlob.ToHexString()}");
-                                                
-                                                txsBlobLength = ReadBigEndianUInt32(reader);
-                                                //logger.Debug(() => $"txsBlobLength: {txsBlobLength}");
-                                                txsBlob = reader.ReadBytes((int)txsBlobLength);
-                                                //logger.Debug(() => $"txsBlob: {txsBlob.ToHexString()}");
-                                                
-                                                targetLength = ReadBigEndianUInt32(reader);
-                                                //logger.Debug(() => $"targetLength: {targetLength}");
-                                                targetBlob = reader.ReadBytes((int)targetLength);
-                                                //logger.Debug(() => $"targetBlob: {targetBlob.ToHexString()}");
+                                                alephiumBlockTemplate = new AlephiumBlockTemplate[jobSize];
 
-                                                alephiumBlockTemplate[index] = new AlephiumBlockTemplate
+                                                for (int index = 0; index < jobSize; index++)
                                                 {
-                                                    JobId = NextJobId("X"),
-                                                    Height = (ulong) chainInfo?.CurrentHeight + 1,
-                                                    Timestamp = clock.Now,
-                                                    FromGroup = fromGroup,
-                                                    ToGroup = toGroup,
-                                                    HeaderBlob = headerBlob.ToHexString(),
-                                                    TxsBlob = txsBlob.ToHexString(),
-                                                    TargetBlob = targetBlob.ToHexString(),
-                                                    ChainIndex = fromGroup * AlephiumConstants.GroupSize + toGroup,
-                                                };
+                                                    logger.Debug(() => $"Job ({index + 1})");
+                                                    fromGroup = (int)ReadBigEndianUInt32(reader);
+                                                    toGroup = (int)ReadBigEndianUInt32(reader);
+                                                    logger.Debug(() => $"fromGroup: {fromGroup} - toGroup: {toGroup}");
+
+                                                    chainInfo = await rpc.GetBlockflowChainInfoAsync(fromGroup, toGroup, cts.Token);
+                                                    logger.Debug(() => $"Height: {chainInfo?.CurrentHeight + 1}");
+
+                                                    headerBlobLength = ReadBigEndianUInt32(reader);
+                                                    logger.Debug(() => $"headerBlobLength: {headerBlobLength}");
+                                                    headerBlob = reader.ReadBytes((int)headerBlobLength);
+                                                    logger.Debug(() => $"headerBlob: {headerBlob.ToHexString()}");
+
+                                                    txsBlobLength = ReadBigEndianUInt32(reader);
+                                                    logger.Debug(() => $"txsBlobLength: {txsBlobLength}");
+                                                    txsBlob = reader.ReadBytes((int)txsBlobLength);
+                                                    logger.Debug(() => $"txsBlob: {txsBlob.ToHexString()}");
+
+                                                    targetLength = ReadBigEndianUInt32(reader);
+                                                    logger.Debug(() => $"targetLength: {targetLength}");
+                                                    targetBlob = reader.ReadBytes((int)targetLength);
+                                                    logger.Debug(() => $"targetBlob: {targetBlob.ToHexString()}");
+
+                                                    alephiumBlockTemplate[index] = new AlephiumBlockTemplate
+                                                    {
+                                                        JobId = NextJobId("X"),
+                                                        Height = (ulong) chainInfo?.CurrentHeight + 1,
+                                                        Timestamp = clock.Now,
+                                                        FromGroup = fromGroup,
+                                                        ToGroup = toGroup,
+                                                        HeaderBlob = headerBlob.ToHexString(),
+                                                        TxsBlob = txsBlob.ToHexString(),
+                                                        TargetBlob = targetBlob.ToHexString(),
+                                                        ChainIndex = fromGroup * AlephiumConstants.GroupSize + toGroup,
+                                                    };
+                                                }
+
+                                                // publish
+                                                logger.Debug(() => $"Publishing {jobSize} {coin.Symbol} Block Template(s)...");
+                                                obs.OnNext(alephiumBlockTemplate);
                                             }
-                                            
-                                            // publish
-                                            //logger.Debug(() => $"Publishing...");
-                                            obs.OnNext(alephiumBlockTemplate);
+
+                                            remainingBytes = memory.Length - memory.Position;
+                                            if(remainingBytes > 0)
+                                            {
+                                                logger.Debug(() => $"More job(s) are available :O");
+
+                                                remainingDataBytes = reader.ReadBytes((int) remainingBytes);
+                                                memory.SetLength(0);
+                                                memory.Write(remainingDataBytes, 0, remainingDataBytes.Length);
+
+                                                goto socket_read_memory;
+                                            }
+                                            else
+                                            {
+                                                logger.Debug(() => $"All available data have been digested..");
+
+                                                memory.SetLength(0);
+                                            }
                                         }
+                                        else
+                                            logger.Warn(() => $"Message is more bigger than MemoryStream, so we can not diggest completely those data, they will be temporarly ignored until we are able to identify a complete message. Maybe consider to increase `'socketJobMessageBufferSize': {socketJobMessageBufferSize * 2}`");
                                     }
-                                }
                             }
 
                             logger.Debug(() => $"No more data received. Bye!");
@@ -204,7 +233,7 @@ public class AlephiumJobManager : JobManagerBase<AlephiumJob>
                         if(!cts.IsCancellationRequested)
                         {
                             await Task.Delay(TimeSpan.FromSeconds(10), cts.Token);
-                            goto retry;
+                            goto socket_connexion;
                         }
                 }
             }, cts.Token);
@@ -642,7 +671,7 @@ public class AlephiumJobManager : JobManagerBase<AlephiumJob>
         extraPoolConfig = pc.Extra.SafeExtensionDataAs<AlephiumPoolConfigExtra>();
         extraPoolPaymentProcessingConfig = pc.PaymentProcessing.Extra.SafeExtensionDataAs<AlephiumPaymentProcessingConfigExtra>();
         
-        maxActiveJobs = extraPoolConfig?.MaxActiveJobs ?? 16;
+        maxActiveJobs = extraPoolConfig?.MaxActiveJobs ?? 8;
         socketJobMessageBufferSize = extraPoolConfig?.SocketJobMessageBufferSize ?? 131072;
         
         // extract standard daemon endpoints
