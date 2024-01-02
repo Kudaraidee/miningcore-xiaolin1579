@@ -18,7 +18,7 @@ before_build:
 
 build_script:
   - # Install Linux build-dependencies
-  - sh: sudo apt-get update -y && sudo apt-get -y install cmake build-essential libssl-dev pkg-config libboost-all-dev libsodium-dev libzmq5 libgmp-dev
+  - sh: sudo apt-get update -y && sudo apt-get install -y cmake cmake ninja-build build-essential libssl-dev pkg-config libboost-all-dev libsodium-dev libzmq5 libgmp-dev
   - # Publish
   - cd Miningcore
   - dotnet publish -c Release --framework net6.0
