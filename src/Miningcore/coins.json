@@ -2965,6 +2965,39 @@
         "explorerTxLink": "https://explorer.raptoreum.com/tx/{0}",
         "explorerAccountLink": "https://explorer.raptoreum.com/address/{0}"
     },
+    "rheix": {
+        "name": "Rheix",
+        "canonicalName": "Rheix",
+        "symbol": "RHX",
+        "family": "bitcoin",
+        "website": "https://rheix.com/",
+        "market": "",
+        "twitter": "",
+        "telegram": "",
+        "discord": "https://discord.gg/9wgVDHMMyR",
+        "github": "https://github.com/rheixverse/rheix",
+        "coinbaseHasher": {
+            "hash": "sha256d"
+        },
+        "headerHasher": {
+            "hash": "ghostrider"
+        },
+        "blockHasher": {
+            "hash": "reverse",
+            "args": [
+                {
+                    "hash": "sha256d"
+                }
+            ]
+        },
+        "hasFounderFee": true,
+        "hasMasterNodes": true,
+        "hasSmartNodes": true,
+        "shareMultiplier": 65536,
+        "explorerBlockLink": "https://explorer.rheix.com/block/$hash$",
+        "explorerTxLink": "https://explorer.rheix.com/tx/{0}",
+        "explorerAccountLink": "https://explorer.rheix.com/address/{0}"
+    },
     "redblock": {
         "name": "RedBlock",
         "symbol": "REDB",
@@ -4336,6 +4369,36 @@
         "explorerBlockLink": "https://chainz.cryptoid.info/via/block.dws?$height$.htm",
         "explorerTxLink": "https://chainz.cryptoid.info/via/tx.dws?{0}.htm",
         "explorerAccountLink": "https://chainz.cryptoid.info/via/address.dws?{0}.htm"
+    },
+    "vishai": {
+        "name": "VishAiCoin",
+        "symbol": "VISH",
+        "family": "bitcoin",
+        "website": "https://vishcoin.com/",
+        "twitter": "https://twitter.com/vishcoinai",
+        "telegram": "https://t.me/vishaiofficial",
+        "github": "https://github.com/vishcoin/vishai",
+        "explorer": "https://explorer.vishcoin.com",
+        "discord": "https://discord.com/invite/cxCfHuNpWn",
+        "coinbaseHasher": {
+            "hash": "sha256d"
+        },
+        "headerHasher": {
+            "hash": "yespower",
+        },
+        "blockHasher": {
+            "hash": "reverse",
+            "args": [
+				{
+					"hash": "yespower"
+				}
+			]
+        },
+        "hasMasterNodes": true,
+        "shareMultiplier": 65536,
+        "explorerBlockLink": "https://explorer.vishcoin.com/block/$hash$",
+        "explorerTxLink": "https://explorer.vishcoin.com/tx/{0}",
+        "explorerAccountLink": "https://explorer.vishcoin.com/address/{0}"
     },
     "volkshash": {
         "name": "VolksHash",

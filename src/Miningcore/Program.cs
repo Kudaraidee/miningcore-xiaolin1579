@@ -29,7 +29,11 @@ using Miningcore.Crypto.Hashing.Algorithms;
 using Miningcore.Crypto.Hashing.Equihash;
 using Miningcore.Crypto.Hashing.Ethash.Etchash;
 using Miningcore.Crypto.Hashing.Ethash.Ethash;
+using Miningcore.Crypto.Hashing.Ethash.Ethashb3;
 using Miningcore.Crypto.Hashing.Ethash.Ubqhash;
+using Miningcore.Crypto.Hashing.Progpow.Evrprogpow;
+using Miningcore.Crypto.Hashing.Progpow.Firopow;
+using Miningcore.Crypto.Hashing.Progpow.Kawpow;
 using Miningcore.Extensions;
 using Miningcore.Messaging;
 using Miningcore.Mining;
@@ -784,8 +788,11 @@ public class Program : BackgroundService
         EquihashSolver.messageBus = messageBus;
         EquihashSolver.MaxThreads = clusterConfig.EquihashMaxThreads ?? 1;
 
-        // Configure Ethhash
+        // Configure Ethash
         Miningcore.Crypto.Hashing.Ethash.Ethash.Cache.messageBus = messageBus;
+
+        // Configure EthashB3
+        Miningcore.Crypto.Hashing.Ethash.Ethashb3.Cache.messageBus = messageBus;
 
         // Configure Etchash
         Miningcore.Crypto.Hashing.Ethash.Etchash.Cache.messageBus = messageBus;
@@ -808,6 +815,16 @@ public class Program : BackgroundService
 
         // Configure NexaPow
         Crypto.Hashing.Algorithms.NexaPow.messageBus = messageBus;
+
+        // Configure Evrprogpow
+        Miningcore.Crypto.Hashing.Progpow.Evrprogpow.Cache.messageBus = messageBus;
+
+        // Configure FiroPow
+        Miningcore.Crypto.Hashing.Progpow.Firopow.Cache.messageBus = messageBus;
+
+        // Configure Kawpow
+        Miningcore.Crypto.Hashing.Progpow.Kawpow.Cache.messageBus = messageBus;
+
     }
 
     private static async Task ConfigurePostgresCompatibilityOptions(IServiceProvider services)
