@@ -5,7 +5,8 @@
         "family": "bitcoin",
         "website": "https://fiveg.cash/",
         "market": "",
-        "github": "",
+        "github": "",        "canonicalName": "VishAiCoin",
+
         "twitter": "https://twitter.com/5gCash",
         "telegram": "https://t.me/VGC_5GCASH",
         "discord": "https://discord.gg/uXHvyBT",
@@ -4372,6 +4373,7 @@
     },
     "vishai": {
         "name": "VishAiCoin",
+        "canonicalName": "VishAiCoin",
         "symbol": "VISH",
         "family": "bitcoin",
         "website": "https://vishcoin.com/",
