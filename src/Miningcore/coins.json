@@ -582,7 +582,7 @@
         "explorerTxLink": "https://blocks.butcoin.tech/tx/{0}",
         "explorerAccountLink": "https://blocks.butcoin.tech/address/{0}"
     },
-    "butkoin-scrypt": {
+        "butkoin-scrypt": {
         "name": "ButKoin Scrypt",
         "canonicalName": "ButKoin",
         "symbol": "BUTK",
@@ -607,23 +607,15 @@
                 }
             ]
         },
-        "posBlockHasher": {
-            "hash": "reverse",
-            "args": [
-                {
-                    "hash": "scrypt",
-                    "args": [1024, 1]
-                }
-            ]
-        },
+        "blockTemplateRpcExtraParams": ["scrypt"],
         "shareMultiplier": 65536,
         "hasFounderFee": true,
         "hasMasterNodes": true,
         "hasSmartNodes": true,
-        "explorerBlockLink": "https://blocks.butcoin.tech/block/$hash$",
-        "explorerTxLink": "https://blocks.butcoin.tech/tx/{0}",
-        "explorerAccountLink": "https://blocks.butcoin.tech/address/{0}"
-    },
+        "explorerBlockLink": "https://explorer.butkoin.com/block/$hash$/mainnet",
+        "explorerTxLink": "https://explorer.butkoin.com/tx/{0}/mainnet",
+        "explorerAccountLink": "https://explorer.butkoin.com/address/{0}/mainnet"
+
     "butkoin-ghostrider": {
         "name": "ButKoin GhostRider",
         "canonicalName": "ButKoin",
