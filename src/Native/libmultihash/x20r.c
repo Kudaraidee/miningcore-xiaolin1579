@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #include "sha3/sph_blake.h"
 #include "sha3/sph_bmw.h"
@@ -22,8 +23,6 @@
 #include "sha3/sph_radiogatun.h"
 #include "sha3/sph_panama.h"
 #include "sha3/gost_streebog.h"
-
-#define _ALIGN(x) __attribute__ ((aligned(x)))
 
  enum Algo {
 	BLAKE = 0,
@@ -49,9 +48,6 @@
 	HASH_FUNC_COUNT
 };
 
-static __thread uint32_t s_ntime = UINT32_MAX;
-static __thread char hashOrder[HASH_FUNC_COUNT + 1] = { 0 };
-
 static void getAlgoString(const uint8_t* prevblock, char *output)
 {
 	char *sptr = output;
@@ -70,7 +66,8 @@ static void getAlgoString(const uint8_t* prevblock, char *output)
 
 void x20r_hash(const char* input, char* output, uint32_t len)
 {
-	uint32_t _ALIGN(128) hash[64/4];
+	uint32_t hash[64/4];
+    char hashOrder[HASH_FUNC_COUNT + 1] = { 0 };
 
 	sph_blake512_context     ctx_blake;
 	sph_bmw512_context       ctx_bmw;
@@ -96,10 +93,7 @@ void x20r_hash(const char* input, char* output, uint32_t len)
 	void *in = (void*) input;
 	int size = len;
 
-	if (s_ntime == UINT32_MAX) {
-		const uint8_t* in8 = (uint8_t*) input;
-		getAlgoString(&in8[4], hashOrder);
-	}
+	getAlgoString(&input[4], hashOrder);
 
 	for (int i = 0; i < 20; i++)
 	{

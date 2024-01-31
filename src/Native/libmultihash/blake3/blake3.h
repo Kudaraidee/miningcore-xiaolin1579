@@ -51,6 +51,8 @@ void blake3_hasher_finalize_seek(const blake3_hasher *self, uint64_t seek,
 
 void blake3_hash(const char* input, char* output, size_t input_len);
 
+void blake3(const char* input, char* output, size_t input_len, const char* context, size_t context_len);
+
 #ifdef __cplusplus
 }
 #endif

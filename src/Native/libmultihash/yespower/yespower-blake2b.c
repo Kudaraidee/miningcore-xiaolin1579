@@ -57,8 +57,6 @@
 #warning "Note: AVX and XOP are not enabled.  That's OK."
 #elif defined(__x86_64__) || defined(__i386__)
 #warning "SSE2 not enabled.  Expect poor performance."
-#else
-#warning "Note: building generic code for non-x86.  That's OK."
 #endif
 
 /*
@@ -1193,8 +1191,8 @@ fail:
 int yespower_b2b_tls(const uint8_t *src, size_t srclen,
     const yespower_params_t *params, yespower_binary_t *dst)
 {
-    static __thread int initialized = 0;
-    static __thread yespower_local_t local;
+    static int initialized = 0;
+    static yespower_local_t local;
 
     if (!initialized) {
         init_region(&local);

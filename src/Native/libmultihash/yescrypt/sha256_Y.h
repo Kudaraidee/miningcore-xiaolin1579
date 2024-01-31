@@ -26,8 +26,12 @@
  * $FreeBSD: src/lib/libmd/sha256_Y.h,v 1.2 2006/01/17 15:35:56 phk Exp $
  */
 
-#ifndef _SHA256_H_
-#define _SHA256_H_
+#ifndef _SHA256_Y_H_
+#define _SHA256_Y_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <sys/types.h>
 
@@ -56,7 +60,11 @@ void	HMAC_SHA256_Final_Y(unsigned char [32], HMAC_SHA256_CTX_Y *);
  * Compute PBKDF2(passwd, salt, c, dkLen) using HMAC-SHA256 as the PRF, and
  * write the output to buf.  The value dkLen must be at most 32 * (2^32 - 1).
  */
-void	PBKDF2_SHA256(const uint8_t *, size_t, const uint8_t *, size_t,
+void	PBKDF2_SHA256_Y(const uint8_t *, size_t, const uint8_t *, size_t,
     uint64_t, uint8_t *, size_t);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* !_SHA256_H_ */

@@ -32,10 +32,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "sha256.h"
+#include "sha256_Y.h"
 #include "sysendian.h"
 
-#include "yescrypt-platform.c"
+#include "yescrypt-platform.h"
 
 static inline uint32_t
 le32dec(const void *pp)

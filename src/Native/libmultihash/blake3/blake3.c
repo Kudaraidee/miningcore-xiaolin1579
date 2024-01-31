@@ -608,3 +608,24 @@ void blake3_hash(const char *input, char *output, size_t input_len)
     // Finalize the hash. BLAKE3_OUT_LEN is the default output length, 32 bytes.
     blake3_hasher_finalize(&hasher, (uint8_t *)output, BLAKE3_OUT_LEN);
 }
+
+void blake3(const char *input, char *output, size_t input_len, const char *context, size_t context_len)
+{
+    // Initialize the hasher.
+    blake3_hasher hasher;
+    
+    if( context_len > 0 )
+    {
+        //blake3_hasher_init_derive_key(&hasher, context);
+        blake3_hasher_init_keyed(&hasher, context);
+    }
+    else
+    {
+        blake3_hasher_init(&hasher);
+    }
+
+    blake3_hasher_update(&hasher, input, input_len);
+
+    // Finalize the hash. BLAKE3_OUT_LEN is the default output length, 32 bytes.
+    blake3_hasher_finalize(&hasher, (uint8_t *)output, BLAKE3_OUT_LEN);
+}

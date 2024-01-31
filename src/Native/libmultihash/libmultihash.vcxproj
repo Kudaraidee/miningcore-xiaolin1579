@@ -148,8 +148,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -158,6 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\local\boost_1_76_0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -169,6 +169,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="allium.h" />
+    <ClInclude Include="aurum.h" />
     <ClInclude Include="bcrypt.h" />
     <ClInclude Include="blake.h" />
     <ClInclude Include="blake2\ref\blake2-impl.h" />
@@ -247,7 +248,6 @@
     <ClInclude Include="sha3\sph_shavite.h" />
     <ClInclude Include="sha3\sph_simd.h" />
     <ClInclude Include="sha3\sph_skein.h" />
-    <ClInclude Include="sha3\sph_skein2.h" />
     <ClInclude Include="sha3\sph_sm3.h" />
     <ClInclude Include="sha3\sph_tiger.h" />
     <ClInclude Include="sha3\sph_types.h" />
@@ -263,8 +263,10 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="verthash\h2.h" />
     <ClInclude Include="verthash\tiny_sha3\sha3.h" />
-    <ClInclude Include="yescrypt\sha256.h" />
+    <ClInclude Include="yescrypt\sha256_Y.h" />
+    <ClInclude Include="yescrypt\sysendian.h" />
     <ClInclude Include="yescrypt\yescrypt.h" />
+    <ClInclude Include="yescrypt\yescrypt-platform.h" />
     <ClInclude Include="yespower\crypto\blake2b-yp.h" />
     <ClInclude Include="yespower\crypto\sph_types.h" />
     <ClInclude Include="yespower\insecure_memzero.h" />
@@ -288,6 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="allium.c" />
+    <ClCompile Include="aurum.c" />
     <ClCompile Include="bcrypt.c" />
     <ClCompile Include="blake.c" />
     <ClCompile Include="blake2\ref\blake2b-ref.c" />
@@ -298,16 +301,10 @@
     <ClCompile Include="blake2\ref\blake2xs-ref.c" />
     <ClCompile Include="blake3\blake3.c" />
     <ClCompile Include="blake3\blake3_avx2.c" />
-    <ClCompile Include="blake3\blake3_avx2_x86-64_unix.S" />
     <ClCompile Include="blake3\blake3_avx512.c" />
-    <ClCompile Include="blake3\blake3_avx512_x86-64_unix.S" />
-    <ClCompile Include="blake3\blake3_avx512_x86-64_windows_gnu.S" />
     <ClCompile Include="blake3\blake3_dispatch.c" />
-    <ClCompile Include="blake3\blake3_neon.c" />
     <ClCompile Include="blake3\blake3_portable.c" />
     <ClCompile Include="blake3\blake3_sse41.c" />
-    <ClCompile Include="blake3\blake3_sse41_x86-64_unix.S" />
-    <ClCompile Include="blake3\blake3_sse41_x86-64_windows_gnu.S" />
     <ClCompile Include="c11.c" />
     <ClCompile Include="dcrypt.c" />
     <ClCompile Include="dllmain.cpp" />
@@ -377,7 +374,6 @@
     <ClCompile Include="sha3\sph_shavite.c" />
     <ClCompile Include="sha3\sph_simd.c" />
     <ClCompile Include="sha3\sph_skein.c" />
-    <ClCompile Include="sha3\sph_skein2.c" />
     <ClCompile Include="sha3\sph_tiger.c" />
     <ClCompile Include="sha3\sph_whirlpool.c" />
     <ClCompile Include="sha3\SWIFFTX.c" />
@@ -389,10 +385,9 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="verthash\h2.c" />
     <ClCompile Include="verthash\tiny_sha3\sha3.c" />
-    <ClCompile Include="yescrypt\sha256.c" />
+    <ClCompile Include="yescrypt\sha256_Y.c" />
     <ClCompile Include="yescrypt\yescrypt.c" />
     <ClCompile Include="yescrypt\yescrypt-opt.c" />
-    <ClCompile Include="yescrypt\yescrypt.c" />
     <ClCompile Include="yespower\crypto\blake2b-yp.c" />
     <ClCompile Include="yespower\yespower-blake2b.c" />
     <ClCompile Include="yespower\yespower-combined.c" />
