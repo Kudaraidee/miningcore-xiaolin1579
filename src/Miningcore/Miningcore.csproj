@@ -52,7 +52,7 @@
         <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.2" />
         <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.15" />
         <PackageReference Include="Npgsql" Version="6.0.7" />
-        <PackageReference Include="NSwag.AspNetCore" Version="13.20.0" />
+        <PackageReference Include="NSwag.AspNetCore" Version="14.0.3" />
         <PackageReference Include="NSwag.CodeGeneration.CSharp" Version="14.0.3" />
         <PackageReference Include="NSwag.MSBuild" Version="13.17.0">
             <PrivateAssets>all</PrivateAssets>
