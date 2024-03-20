@@ -34,6 +34,7 @@ using Miningcore.Crypto.Hashing.Ethash.Ubqhash;
 using Miningcore.Crypto.Hashing.Progpow.Evrprogpow;
 using Miningcore.Crypto.Hashing.Progpow.Firopow;
 using Miningcore.Crypto.Hashing.Progpow.Kawpow;
+using Miningcore.Crypto.Hashing.Progpow.Meowpow;
 using Miningcore.Extensions;
 using Miningcore.Messaging;
 using Miningcore.Mining;
@@ -821,6 +822,9 @@ public class Program : BackgroundService
 
         // Configure FiroPow
         Miningcore.Crypto.Hashing.Progpow.Firopow.Cache.messageBus = messageBus;
+
+        // Configure Meowpow
+        Miningcore.Crypto.Hashing.Progpow.Meowpow.Cache.messageBus = messageBus;
 
         // Configure Kawpow
         Miningcore.Crypto.Hashing.Progpow.Kawpow.Cache.messageBus = messageBus;

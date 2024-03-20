@@ -34,6 +34,7 @@ export HAVE_FEATURE="$HAVE_AES $HAVE_SSE2 $HAVE_SSE3 $HAVE_SSSE3 $HAVE_PCLMUL $H
 (cd ../Native/libkawpow && make -j clean && make -j) && mv ../Native/libkawpow/libkawpow.so "$OutDir"
 (cd ../Native/libfiropow && make -j clean && make -j) && mv ../Native/libfiropow/libfiropow.so "$OutDir"
 (cd ../Native/libevrprogpow && make -j clean && make -j) && mv ../Native/libevrprogpow/libevrprogpow.so "$OutDir"
+(cd ../Native/libmeowpow && make -j clean && make -j) && mv ../Native/libmeowpow/libmeowpow.so "$OutDir"
 (cd ../Native/libverushash && make clean && make) && mv ../Native/libverushash/libverushash.so "$OutDir"
 
 

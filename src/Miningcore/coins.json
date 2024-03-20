@@ -1717,12 +1717,14 @@
         "name": "Meowcoin",
         "symbol": "MEWC",
         "family": "progpow",
-        "progpower": "kawpow",
-        "website": "",
-        "market": "",
-        "twitter": "",
+        "progpower": "meowpow",
+        "website": "https://www.mewccrypto.com/",
+        "github": "https://github.com/JustAResearcher/Meowcoin",
+        "market": "https://www.coingecko.com/en/coins/meowcoin",
+        "explorer": "https://mewc.cryptoscope.io/",
+        "twitter": "https://twitter.com/MeowcoinProject",
         "telegram": "",
-        "discord": "",
+        "discord": "https://discord.com/invite/meowcoin",
         "coinbaseHasher": {
             "hash": "sha256d"
         },
@@ -1739,9 +1741,9 @@
         },
         "hasCommunityAddress": true,
         "shareMultiplier": 1,
-        "explorerBlockLink": "https://explorer.mewccrypto.com/block/$hash$",
-        "explorerTxLink": "https://explorer.mewccrypto.com/tx/{0}",
-        "explorerAccountLink": "https://explorer.mewccrypto.com/address/{0}"
+        "explorerBlockLink": "https://mewc.cryptoscope.io/block/?blockhash=$hash$",
+        "explorerTxLink": "https://mewc.cryptoscope.io/tx/?txid={0}",
+        "explorerAccountLink": "https://mewc.cryptoscope.io/address/?address={0}"
     },
     "geekcash": {
         "name": "Geek Cash",
