@@ -11,8 +11,6 @@
 
 #pragma once
 
-#include "ethash.hpp"
-
 #if _WIN32
 
 #include <stdlib.h>

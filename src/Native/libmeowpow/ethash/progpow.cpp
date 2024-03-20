@@ -284,6 +284,87 @@ hash256 hash_mix(
 }
 }  // namespace
 
+result hashext(const epoch_context& context, int block_number, const hash256& header_hash,
+    uint64_t nonce, const hash256& mix_hash, const hash256& boundary1, const hash256& boundary2, int* retcode) noexcept
+{
+    uint32_t hash_seed[2];  // KISS99 initiator
+
+    uint32_t state2[8];
+
+    {
+        uint32_t state[25] = {0x0};     // Keccak's state
+
+        // Absorb phase for initial round of keccak
+        // 1st fill with header data (8 words)
+        for (int i = 0; i < 8; i++)
+            state[i] = header_hash.word32s[i];
+
+        // 2nd fill with nonce (2 words)
+        state[8] = (uint32_t)nonce;
+        state[9] = (uint32_t)(nonce >> 32);
+
+        // 3rd apply meowcoin input constraints
+        for (int i = 10; i < 25; i++)
+            state[i] = meowcoin_kawpow[i-10];
+
+        keccak_progpow_64(state);
+
+        for (int i = 0; i < 8; i++)
+            state2[i] = state[i];
+    }
+
+    hash_seed[0] = state2[0];
+    hash_seed[1] = state2[1];
+    //mix hash was here
+
+    uint32_t state[25] = {0x0};     // Keccak's state
+
+    // Absorb phase for last round of keccak (256 bits)
+    // 1st initial 8 words of state are kept as carry-over from initial keccak
+    for (int i = 0; i < 8; i++)
+        state[i] = state2[i];
+
+    // 2nd subsequent 8 words are carried from digest/mix
+    for (int i = 8; i < 16; i++)
+        state[i] = mix_hash.word32s[i-8];
+
+    // 3rd apply meowcoin input constraints
+    for (int i = 16; i < 25; i++)
+        state[i] = meowcoin_kawpow[i - 16];
+
+    // Run keccak loop
+    keccak_progpow_256(state);
+
+    /* mod start */
+	hash256 output;
+    for (int i = 0; i < 8; ++i)
+        output.word32s[i] = le::uint32(state[i]);
+
+
+    if (!is_less_or_equal(output, boundary1)) {
+		//if(boundary1 == boundary2) {
+        if(is_equal(boundary1, boundary2)) {
+		  *retcode = 1;
+          return {output, mix_hash};
+		}
+	    else {
+			if (!is_less_or_equal(output, boundary2)) {
+				 *retcode = 1;
+				 return {output, mix_hash};
+			}
+		}
+    }
+
+	const hash256 computed_mix_hash = hash_mix(context, block_number, hash_seed, calculate_dataset_item_2048);
+	if(!is_equal(computed_mix_hash, mix_hash)) {
+		*retcode = 2;
+		return {output, mix_hash};
+	}
+	/* mod end */
+	*retcode = 0;
+    return {output, computed_mix_hash};
+}
+
 result hash(const epoch_context& context, int block_number, const hash256& header_hash,
     uint64_t nonce) noexcept
 {
@@ -388,9 +469,10 @@ result hash(const epoch_context_full& context, int block_number, const hash256& 
     hash_seed[0] = state2[0];
     hash_seed[1] = state2[1];
 
-    const hash256 mix_hash = hash_mix(context, block_number, hash_seed, lazy_lookup);
+	const hash256 mix_hash = hash_mix(context, block_number, hash_seed, lazy_lookup);
 
     uint32_t state[25] = {0x0};     // Keccak's state
+
 
     // Absorb phase for last round of keccak (256 bits)
     // 1st initial 8 words of state are kept as carry-over from initial keccak
@@ -405,12 +487,17 @@ result hash(const epoch_context_full& context, int block_number, const hash256& 
     for (int i = 16; i < 25; i++)
         state[i] = meowcoin_kawpow[i - 16];
 
+
+
     // Run keccak loop
     keccak_progpow_256(state);
 
-    hash256 output;
+
+	hash256 output;
     for (int i = 0; i < 8; ++i)
         output.word32s[i] = le::uint32(state[i]);
+
+
 
     return {output, mix_hash};
 }
@@ -467,8 +554,11 @@ bool verify(const epoch_context& context, int block_number, const hash256& heade
     hash256 output;
     for (int i = 0; i < 8; ++i)
         output.word32s[i] = le::uint32(state[i]);
-    if (!is_less_or_equal(output, boundary))
+
+
+    if (!is_less_or_equal(output, boundary)) {
         return false;
+	}
 
     const hash256 expected_mix_hash =
         hash_mix(context, block_number, hash_seed, calculate_dataset_item_2048);

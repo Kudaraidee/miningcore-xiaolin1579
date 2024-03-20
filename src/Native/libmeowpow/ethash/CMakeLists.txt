@@ -5,7 +5,7 @@
 include(GNUInstallDirs)
 
 add_library(
-    ethash
+    ethash SHARED
     bit_manipulation.h
     builtins.h
     endianness.hpp
@@ -21,6 +21,7 @@ add_library(
     ${include_dir}/ethash/progpow.hpp
     progpow.cpp
 )
+set_property(TARGET ethash PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 target_link_libraries(ethash PRIVATE keccak)
 target_include_directories(ethash PUBLIC $<BUILD_INTERFACE:${include_dir}>$<INSTALL_INTERFACE:include>)

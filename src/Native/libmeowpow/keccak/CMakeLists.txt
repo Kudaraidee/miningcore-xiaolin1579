@@ -13,6 +13,7 @@ add_library(
     keccakf800.c
     keccakf1600.c
 )
+set_property(TARGET keccak PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 target_include_directories(keccak PUBLIC $<BUILD_INTERFACE:${include_dir}>$<INSTALL_INTERFACE:include>)
 
