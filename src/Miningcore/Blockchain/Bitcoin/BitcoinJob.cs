@@ -246,6 +246,9 @@ public class BitcoinJob
         if(coin.HasFounderFee)
             rewardToPool = CreateFounderOutputs(tx, rewardToPool);
 
+        if(coin.HasFortuneReward)
+            rewardToPool = CreateFortuneOutputs(tx, rewardToPool);
+
         if(coin.HasMinerFund)
             rewardToPool = CreateMinerFundOutputs(tx, rewardToPool);
 
@@ -531,6 +534,42 @@ public class BitcoinJob
     }
 
     #endregion // Masternodes
+
+
+    #region Fortune
+
+    protected FortuneBlockTemplateExtra fortuneParameters;
+
+    protected virtual Money CreateFortuneOutputs(Transaction tx, Money reward)
+    {
+        if(fortuneParameters.Fortune != null)
+        {
+            Fortune[] fortunes;
+            if(fortuneParameters.Fortune.Type == JTokenType.Array)
+                fortunes = fortuneParameters.Fortune.ToObject<Fortune[]>();
+            else
+                fortunes = new[] { fortuneParameters.Fortune.ToObject<Fortune>() };
+
+            if(fortunes != null)
+            {
+                foreach(var Fortune in fortunes)
+                {
+                    if(!string.IsNullOrEmpty(Fortune.Payee))
+                    {
+                        var payeeAddress = BitcoinUtils.AddressToDestination(Fortune.Payee, network);
+                        var payeeReward = Fortune.Amount;
+
+                        tx.Outputs.Add(payeeReward, payeeAddress);
+                        reward -= payeeReward;
+                    }
+                }
+            }
+        }
+
+        return reward;
+    }
+
+    #endregion // Fortune
 
     #region Founder
 
@@ -823,6 +862,9 @@ public class BitcoinJob
 
         if(coin.HasFounderFee)
             founderParameters = BlockTemplate.Extra.SafeExtensionDataAs<FounderBlockTemplateExtra>();
+
+        if(coin.HasFortuneReward)
+            fortuneParameters = BlockTemplate.Extra.SafeExtensionDataAs<FortuneBlockTemplateExtra>();
 
         if(coin.HasFounderReward)
             founderrewardParameters = BlockTemplate.Extra.SafeExtensionDataAs<FounderRewardBlockTemplateExtra>();
