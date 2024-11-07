@@ -8,6 +8,7 @@
  * Copyright 2018      Lee Clagett <https://github.com/vtnerd>
  * Copyright 2018-2019 SChernykh   <https://github.com/SChernykh>
  * Copyright 2016-2019 XMRig       <https://github.com/xmrig>, <support@xmrig.com>
+ * Copyright 2024 FortuneBlock       <https://github.com/fortuneblockteam>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -37,6 +38,7 @@
 #define XMRIG_ALGO_ARGON2     1
 //#define XMRIG_ALGO_ASTROBWT   1
 #define XMRIG_ALGO_GHOSTRIDER 1
+#define XMRIG_ALGO_MIKE 1
 
 
 namespace xmrig {
@@ -83,6 +85,7 @@ public:
         CN_GR_4         = 0x63120104,   // "cn/turtle"        GhostRider
         CN_GR_5         = 0x63120105,   // "cn/turtle-lite"   GhostRider
         GHOSTRIDER_RTM  = 0x6c150000,   // "ghostrider"       GhostRider
+        GHOSTRIDER_MIKE = 0x6c15006d,   // "mike"             Mike
         RX_0            = 0x72151200,   // "rx/0"             RandomX (reference configuration).
         RX_WOW          = 0x72141177,   // "rx/wow"           RandomWOW (Wownero).
         RX_ARQ          = 0x72121061,   // "rx/arq"           RandomARQ (Arqma).
@@ -130,7 +133,7 @@ public:
     inline Id id() const                                    { return m_id; }
     inline size_t l2() const                                { return l2(m_id); }
     inline uint32_t family() const                          { return family(m_id); }
-    inline uint32_t maxIntensity() const                    { return isCN() ? 5 : ((m_id == GHOSTRIDER_RTM) ? 8 : 1); };
+    inline uint32_t maxIntensity() const                    { return isCN() ? 5 : ((m_id == GHOSTRIDER_RTM || m_id == GHOSTRIDER_MIKE) ? 8 : 1); };
 
     inline size_t l3() const
     {

@@ -1,7 +1,7 @@
 /* XMRig
  * Copyright (c) 2018-2021 SChernykh   <https://github.com/SChernykh>
  * Copyright (c) 2016-2021 XMRig       <https://github.com/xmrig>, <support@xmrig.com>
- *
+ * Copyright 2024 FortuneBlock       <https://github.com/fortuneblockteam>
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -120,7 +120,7 @@ public:
         }
 #       endif
 
-#       ifdef XMRIG_ALGO_GHOSTRIDER
+#if defined(XMRIG_ALGO_GHOSTRIDER) || defined(XMRIG_ALGO_MIKE)
         if (algo == Algorithm::CN_GR_1) {
             return 0x3FFF0;
         }
@@ -160,7 +160,7 @@ template<> constexpr inline uint32_t CnAlgo<Algorithm::CN_PICO_0>::mask() const 
 template<> constexpr inline uint32_t CnAlgo<Algorithm::CN_GPU>::mask() const                { return 0x1FFFC0; }
 template<> constexpr inline uint32_t CnAlgo<Algorithm::CN_UPX2>::mask() const               { return 0x1FFF0; }
 
-#ifdef XMRIG_ALGO_GHOSTRIDER
+#if defined(XMRIG_ALGO_GHOSTRIDER) || defined(XMRIG_ALGO_MIKE)
 template<> constexpr inline uint32_t CnAlgo<Algorithm::CN_GR_0>::iterations() const         { return CN_ITER / 4; }
 template<> constexpr inline uint32_t CnAlgo<Algorithm::CN_GR_1>::iterations() const         { return CN_ITER / 4; }
 template<> constexpr inline uint32_t CnAlgo<Algorithm::CN_GR_2>::iterations() const         { return CN_ITER / 2; }

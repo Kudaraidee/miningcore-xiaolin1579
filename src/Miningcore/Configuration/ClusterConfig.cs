@@ -230,6 +230,9 @@ public partial class BitcoinTemplate : CoinTemplate
     public bool HasFounderFee { get; set; }
 
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    public bool HasFortuneReward { get; set; }
+
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
 	public bool HasFounderReward { get; set; }
 
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -424,6 +427,9 @@ public enum CryptonightHashType
 
     [EnumMember(Value = "gr")]
     Ghostrider,
+
+    [EnumMember(Value = "mike")]
+    Mike,
 
     [EnumMember(Value = "cn_lite0")]
     CryptonightLite0,

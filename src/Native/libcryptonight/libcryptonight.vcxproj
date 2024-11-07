@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -178,6 +178,7 @@
     <ClInclude Include="xmrig-override\backend\cpu\Cpu.h" />
     <ClInclude Include="xmrig-override\backend\cpu\platform\BasicCpuInfo.h" />
     <ClInclude Include="xmrig-override\crypto\ghostrider\ghostrider.h" />
+    <ClInclude Include="xmrig-override\crypto\mike\mike.h" />
     <ClInclude Include="xmrig\3rdparty\argon2\arch\x86_64\lib\argon2-avx2.h" />
     <ClInclude Include="xmrig\3rdparty\argon2\arch\x86_64\lib\argon2-avx512f.h" />
     <ClInclude Include="xmrig\3rdparty\argon2\arch\x86_64\lib\argon2-sse2.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="xmrig-override\backend\cpu\Cpu.cpp" />
     <ClCompile Include="xmrig-override\backend\cpu\platform\BasicCpuInfo.cpp" />
     <ClCompile Include="xmrig-override\crypto\ghostrider\ghostrider.cpp" />
+    <ClCompile Include="xmrig-override\crypto\mike\mike.cpp" />
     <ClCompile Include="xmrig\3rdparty\argon2\arch\x86_64\lib\argon2-arch.c" />
     <ClCompile Include="xmrig\3rdparty\argon2\arch\x86_64\lib\argon2-avx2.c" />
     <ClCompile Include="xmrig\3rdparty\argon2\arch\x86_64\lib\argon2-avx512f.c" />
