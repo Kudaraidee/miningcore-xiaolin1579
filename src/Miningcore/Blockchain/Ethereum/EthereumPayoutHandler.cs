@@ -502,29 +502,6 @@ public class EthereumPayoutHandler : PayoutHandlerBase,
 
                 return SlayerXConstants.BaseRewardInitial - (SlayerXConstants.BaseRewardInitial * (SlayerXConstants.StakePercent / 100));
             
-            case GethChainType.OctaSpace:
-                if(height >= OctaSpaceConstants.TriangulumHardForkHeight)
-                    return OctaSpaceConstants.TriangulumBlockReward;
-                if(height >= OctaSpaceConstants.VegaHardForkHeight)
-                    return OctaSpaceConstants.VegaBlockReward;
-                if(height >= OctaSpaceConstants.BlackeyeHardForkHeight)
-                    return OctaSpaceConstants.BlackeyeBlockReward;
-                if(height >= OctaSpaceConstants.DneprHardForkHeight)
-                    return OctaSpaceConstants.DneprBlockReward;
-                if(height >= OctaSpaceConstants.MahasimHardForkHeight)
-                    return OctaSpaceConstants.MahasimBlockReward;
-                if(height >= OctaSpaceConstants.PolarisHardForkHeight)
-                    return OctaSpaceConstants.PolarisBlockReward;
-                if(height >= OctaSpaceConstants.SpringwaterHardForkHeight)
-                    return OctaSpaceConstants.SpringwaterBlockReward;
-                if(height >= OctaSpaceConstants.ZagamiHardForkHeight)
-                    return OctaSpaceConstants.ZagamiBlockReward;
-                if(height >= OctaSpaceConstants.OldenburgHardForkHeight)
-                    return OctaSpaceConstants.OldenburgBlockReward;
-                if(height >= OctaSpaceConstants.ArcturusHardForkHeight)
-                    return OctaSpaceConstants.ArcturusBlockReward;
-                
-               return OctaSpaceConstants.BaseRewardInitial;
 
             case GethChainType.Hypra:
                 if(height >= HypraConstants.LondonHeight)
